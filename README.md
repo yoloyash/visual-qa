@@ -50,6 +50,7 @@ pip install -r requirements.txt
 
 
 ### To-do
+- dataset analysis
 - training code for simple VQA model
 - performance evaluation
 - finetuned ViLT and BLIP models
