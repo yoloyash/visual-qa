@@ -40,11 +40,12 @@ git clone https://github.com/yoloyash/visual-qa
 cd visual-qa
 
 # Create a virtual environment (optional)
-conda create -n vqa python=3.8
+conda create -n vqa python=3.9
 conda activate vqa
 
 # Install the required dependencies
-# Install PyTorch from the official website (compiled with CUDA)
+conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
+conda install chardet
 pip install -r requirements.txt
 ```
 
