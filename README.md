@@ -51,8 +51,9 @@ pip install -r requirements.txt
 
 
 ### To-do
-- dataset analysis
-- training code for simple VQA model
+- ~~dataset analysis~~
+- ~~feature extraction~~
+- training code for own VQA model
 - performance evaluation
 - finetuned ViLT and BLIP models
 - performance comparison

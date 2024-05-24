@@ -1,2 +1,6 @@
 pandas==2.2.1
 matplotlib==3.8.4
+loguru
+git+https://github.com/openai/CLIP.git
+
+# pip install setuptools==69.5.1
