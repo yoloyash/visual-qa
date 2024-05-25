@@ -86,40 +86,56 @@ class VQAModelV3(nn.Module):
         out = self.classifier(x)
         return out
     
-class VQAModelV3Enhanced(nn.Module):
-    def __init__(self, input_dim, hidden_dim, output_dim, num_heads=4, num_layers=2):
-        super(VQAModelV3Enhanced, self).__init__()
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
 
-        self.block1 = nn.Sequential(
-            nn.Linear(input_dim, hidden_dim),
-            nn.LayerNorm(hidden_dim),
-            nn.ReLU(),
-            nn.Dropout(p=0.5)
-        )
+class Attention(nn.Module):
+    def __init__(self, feature_dim, step_dim, bias=True, **kwargs):
+        super(Attention, self).__init__(**kwargs)
+        
+        self.feature_dim = feature_dim
+        self.step_dim = step_dim
+        self.bias = bias
+        self.attention = nn.Linear(feature_dim, 1, bias=bias)
+        
+    def forward(self, x):
+        # x shape: (batch_size, step_dim, feature_dim)
+        eij = self.attention(x)
+        
+        # Compute softmax over the step dimension (time dimension) to get attention weights
+        a = F.softmax(eij, dim=1)
+        weighted_input = x * a
+        
+        # Sum over the step dimension to get the attended feature vector
+        attended_features = weighted_input.sum(1)
+        return attended_features
 
-        self.attention_layers = nn.ModuleList([
-            nn.MultiheadAttention(embed_dim=hidden_dim, num_heads=num_heads, dropout=0.5)
-            for _ in range(num_layers)
-        ])
+class VQAModelV3Attn(nn.Module):
+    def __init__(self, input_dim, hidden_dim, output_dim):
+        super(VQAModelV3Attn, self).__init__()
 
-        self.block2 = nn.Sequential(
-            nn.Linear(hidden_dim, 2 * hidden_dim),
-            nn.LayerNorm(2 * hidden_dim),
-            nn.ReLU(),
-            nn.Dropout(p=0.5)
-        )
+        self.block1 = nn.Sequential(*[nn.Linear(input_dim, hidden_dim),
+                                      nn.LayerNorm(hidden_dim),
+                                      nn.ReLU(),
+                                      nn.Dropout(p=0.5)])
 
-        self.classifier = nn.Linear(2 * hidden_dim, output_dim)
+        self.block2 = nn.Sequential(*[nn.Linear(hidden_dim, 2*hidden_dim),
+                                      nn.LayerNorm(2*hidden_dim),
+                                      nn.ReLU(),
+                                      nn.Dropout(p=0.5)])
+
+        # Attention layer
+        self.attention = Attention(feature_dim=2*hidden_dim, step_dim=1)  # Adjust step_dim based on your actual input shape
+
+        self.classifier = nn.Linear(2*hidden_dim, output_dim)
 
     def forward(self, x):
         x = self.block1(x)
-
-        # Reshape for multi-head attention
-        x = x.unsqueeze(0)  # Add batch dimension
-        for attention_layer in self.attention_layers:
-            x, _ = attention_layer(x, x, x)
-        x = x.squeeze(0)  # Remove batch dimension
-
         x = self.block2(x)
+        
+        # Apply attention
+        x = self.attention(x.unsqueeze(1))  # Unsqueeze to add a dummy step dimension
+        
         out = self.classifier(x)
         return out

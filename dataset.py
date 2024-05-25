@@ -29,6 +29,7 @@ class VizWizDataset(Dataset):
     def __getitem__(self, index):
         img_feat = torch.load(self.df.img_feat.iloc[index])
         text_feat = torch.load(self.df.text_feat.iloc[index])
+        # Concatenate Image and Text Features
         feat = torch.cat((img_feat, text_feat), 1).to(torch.float32)
 
         answer = self.df.final_answer.iloc[index]

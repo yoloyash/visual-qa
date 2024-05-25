@@ -1,6 +1,6 @@
 # Visual Question Answering
 
-This repository features the implementation of a straightforward Visual Question Answering (VQA) model and benchmarks its performance against state-of-the-art models such as ViLT and BLIP2. It was created as a part of the MSAI 337: Natural Language Processing course at Northwestern University.
+This repository features the implementation of a straightforward Visual Question Answering (VQA) model and benchmarks its performance against state-of-the-art models such as ViLT and BLIP2. It was created as a part of the ***MSAI 337: Natural Language Processing course*** at ***Northwestern University.***
 
 
 ## Dataset
@@ -53,8 +53,9 @@ pip install -r requirements.txt
 ### To-do
 - ~~dataset analysis~~
 - ~~feature extraction~~
-- training code for own VQA model
-- performance evaluation
-- finetuned ViLT and BLIP models
+- ~~training code for feature-based model~~
+- ~~performance evaluation~~
+- finetune ViLT for VQA
+- finetune BLIP for VQA
 - tensorboard support
 - performance comparison

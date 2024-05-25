@@ -10,7 +10,7 @@ from loguru import logger
 from sklearn.preprocessing import OrdinalEncoder
 import pickle
 from model import get_optimizer_and_scheduler
-from model import VQAModelV3 as VQAModel
+from model import VQAModelV3Attn as VQAModel
 import time
 from itertools import combinations
 import matplotlib.pyplot as plt

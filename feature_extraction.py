@@ -7,7 +7,7 @@ from PIL import Image
 import torch
 import argparse
 from tqdm import tqdm
-
+import time
 
 class ExtractFeatures():
 
@@ -60,6 +60,10 @@ if __name__ == "__main__":
 
     total = len(data)
     done = 0
+
+    start_time = time.time()
+
+    # training takes about 12 mins
     for idx, row in tqdm(data.iterrows(), total=len(data), desc="Extracting Features"):
         image_path = row['image_path']
         question = row['question']
@@ -79,6 +83,10 @@ if __name__ == "__main__":
         done+=1
         # if done % 500 == 0:
         #     logger.info(f"Total={total} Done={done}")
+
+    end_time = time.time()
+    logger.info(f"Total Time Taken: {end_time - start_time:.2f} seconds")
+
     data['img_feat'] = img_feat_list
     data['text_feat'] = text_feat_list
     os.makedirs(os.path.dirname(args.json_save_path), exist_ok=True)
