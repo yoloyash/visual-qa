@@ -26,7 +26,7 @@ class ExtractFeatures():
         return clip_model, preprocesser
 
     def extract_image_and_text_features(self, img_path, text, device='cpu'):
-        image = Image.open(img_path)
+        image = Image.open(img_path).convert('RGB')
         if self.preprocesser is not None:
             image = self.preprocesser(image).unsqueeze(0).to(device)
         text = clip.tokenize([text]).to(device)
@@ -42,7 +42,7 @@ if __name__ == "__main__":
     parser.add_argument("--json_data_path", type=str, help="Path to the data directory")
     parser.add_argument("--feature_save_dir", type=str, help="Path to save the features")
     parser.add_argument("--vision_model", type=str, default='RN50', help="CLIP vision model to use")
-    parser.add_argument("--device", type=str, default='cpu', help="Device to run the model on")
+    parser.add_argument("--device", type=str, default='cuda', help="Device to run the model on")
     parser.add_argument("--json_save_path", type=str, help="Path to save the data with features")
     args = parser.parse_args()
 
@@ -52,7 +52,7 @@ if __name__ == "__main__":
     feature_extractor = ExtractFeatures(vision_model=args.vision_model, device=args.device)
 
     data = pd.read_json(args.json_data_path)
-    data = data.iloc[:100]
+    # data = data.iloc[:100]
     # print(data)
 
     img_feat_list = []
@@ -77,8 +77,8 @@ if __name__ == "__main__":
         img_feat_list.append(img_feat_path)
         text_feat_list.append(text_feat_path)
         done+=1
-        if done % 500 == 0:
-            logger.info(f"Total={total} Done={done}")
+        # if done % 500 == 0:
+        #     logger.info(f"Total={total} Done={done}")
     data['img_feat'] = img_feat_list
     data['text_feat'] = text_feat_list
     os.makedirs(os.path.dirname(args.json_save_path), exist_ok=True)

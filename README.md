@@ -56,4 +56,5 @@ pip install -r requirements.txt
 - training code for own VQA model
 - performance evaluation
 - finetuned ViLT and BLIP models
+- tensorboard support
 - performance comparison
