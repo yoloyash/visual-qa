@@ -3,4 +3,4 @@ matplotlib==3.8.4
 loguru
 git+https://github.com/openai/CLIP.git
 scikit-learn==1.4.2
-pip install setuptools==69.5.1
+setuptools==69.5.1

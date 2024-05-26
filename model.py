@@ -9,6 +9,10 @@ def get_optimizer_and_scheduler(model, optim='adam', lr=0.001):
         optimizer = torch.optim.Adam(model.parameters(), lr=lr)
         lr_scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.1, patience=4, verbose=False)
         return optimizer, lr_scheduler
+    elif optim.lower() == 'adamw':
+        optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
+        lr_scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.1, patience=4, verbose=False)
+        return optimizer, lr_scheduler
     else:
         raise NotImplementedError(f"{optim} not implemented")
 
