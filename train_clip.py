@@ -3,7 +3,7 @@ import os
 from tqdm import tqdm
 import torch
 import numpy as np
-# from torch.utils.tensorboard import SummaryWriter
+from torch.utils.tensorboard import SummaryWriter
 from datetime import datetime
 from dataset import VizWizDataset
 from loguru import logger

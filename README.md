@@ -1,6 +1,6 @@
 # Visual Question Answering
 
-This repository features the implementation of a straightforward Visual Question Answering (VQA) model and benchmarks its performance against state-of-the-art models such as ViLT and BLIP2. It was created as a part of the ***MSAI 337: Natural Language Processing course*** at ***Northwestern University.***
+This repository features the implementation of a straightforward Visual Question Answering (VQA) model and benchmarks its performance against state-of-the-art models such as ViLT. It was created as a part of the ***MSAI 337: Natural Language Processing course*** at ***Northwestern University.***
 
 
 ## Dataset
@@ -30,6 +30,11 @@ A sample visual question looks like this -
 
 ![VizWiz Dataset](https://github.com/yoloyash/visual-qa/blob/main/assets/dataset.png)
 
+## Pretrained Models
+
+Download pretrained weights for trained models (here)[https://drive.google.com/drive/folders/1HIXI_O-wuNhxLduvE7efWb6Nt-yur8cN?usp=drive_link]
+(Blip missing)
+
 ## Installation
 
 To set up the project environment, follow these steps:
@@ -55,7 +60,9 @@ pip install -r requirements.txt
 - ~~feature extraction~~
 - ~~training code for feature-based model~~
 - ~~performance evaluation~~
-- finetune ViLT for VQA
-- finetune BLIP for VQA
-- tensorboard support
+- ~~finetune ViLT for VQA~~
+- ~~finetune BLIP for VQA~~ (need to train for longer)
+- ~~tensorboard support~~
+- ~~link to trained models and encoders~~
 - performance comparison
+- streamlit webui 

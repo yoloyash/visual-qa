@@ -10,6 +10,7 @@ import time
 from loguru import logger
 import matplotlib.pyplot as plt
 import numpy as np
+from torch.utils.tensorboard import SummaryWriter
 
 from utils import get_class_mapping_vilt, add_label_score_vilt
 from dataset import VizWizDatasetViLT, collate_fn_vilt
@@ -186,7 +187,8 @@ if __name__ == "__main__":
         #     print(type(train_accuracies), type(train_losses), type(val_accuracies), type(val_losses))
 
         logger.info(f"Train loss: {train_loss:.5f} - Val loss: {val_loss:.5f}")
-        logger.info(f"Train VizWiz Accuracy: {train_acc:.5f} - Val VizWiz accuracy: {val_acc:.5f}\n")
+        logger.info(f"Train VizWiz Accuracy: {train_acc:.5f} - Val VizWiz accuracy: {val_acc:.5f}")
+        logger.info(f"Train Normal Accuracy: {train_normal_acc:.5f} - Val Normal Accuracy: {val_normal_acc:.5f}\n")
 
         if val_acc > best_val_acc:
             logger.info(f"val_acc improved from {best_val_acc:.5f} to {val_acc:.5f}")
@@ -227,6 +229,6 @@ if __name__ == "__main__":
     plt.title('Accuracy')
     plt.savefig(os.path.join(run_dir, 'train_val_metrics.png'))
 
-    
+
 
     logger.info("Training Completed!")
