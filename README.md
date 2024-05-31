@@ -30,9 +30,9 @@ A sample visual question looks like this -
 
 ![VizWiz Dataset](https://github.com/yoloyash/visual-qa/blob/main/assets/dataset.png)
 
-## Pretrained Models
+## Trained Models
 
-Download pretrained weights for trained models (here)[https://drive.google.com/drive/folders/1HIXI_O-wuNhxLduvE7efWb6Nt-yur8cN?usp=drive_link]
+Download weights for trained models [here](https://drive.google.com/drive/folders/1HIXI_O-wuNhxLduvE7efWb6Nt-yur8cN?usp=drive_link)
 (Blip missing)
 
 ## Installation
